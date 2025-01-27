@@ -1,5 +1,6 @@
 import subprocess
 import json
+import os
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer
@@ -58,10 +59,35 @@ def generate_pdf_report(data,output_file):
     story.append(Spacer(1, 12))
     # Add other checks
 
-    # DOS ESTADOS
+    # DOS ESTADOS: STATUS Y REVISION DE EXPERIMENTO
+    # STATUS
     print("radar_status",data["radar_status"])
 
     radar_experiment= data["radar_status"]['status']
+
+    # REVISION EXPERIMENTO
+
+    print("experiment_status",data['experiment_status'])
+
+    conf =data['experiment_status'] 
+
+    experiment = data["radar_status"]["name"]
+
+    PATH = "/DATA_RM/DATA"
+
+    path = conf['usrp_rx']['datadir']
+
+    path_ped = os.path.join(PATH, experiment, 'position')
+
+    print("Directorio adquisicion",path)
+    
+    print("Directorio de Pedestal",path_ped)
+
+
+
+
+
+
 
     checks = [
         ("Radar Experiment", radar_experiment),
@@ -76,6 +102,8 @@ def generate_pdf_report(data,output_file):
         else:
             status = "PASS" if result else "FAIL"
         story.append(Paragraph(f"{check}: {status}", styles['Normal']))
+
+
     story.append(Spacer(1, 12))
 
     # Build the PDF
