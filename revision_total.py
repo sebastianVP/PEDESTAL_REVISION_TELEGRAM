@@ -56,6 +56,9 @@ def generate_pdf_report(data,output_file):
         story.append(Paragraph(json.dumps(data['experiment_status'], indent=4), styles['Code']))
     story.append(Spacer(1, 12))
 
+    # Build the PDF
+    doc.build(story)
+
 
 if __name__ == "__main__":
     # GET RADAR CONDITION DATA
