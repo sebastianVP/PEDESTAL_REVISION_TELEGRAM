@@ -25,8 +25,8 @@ def check_radar_conditions():
 
     # DOS ESTADOS
     print("radar_status",radar_status)
-    conf1 = json.dumps(radar_status['status'])
-    enable_status= conf1["status"]
+
+    enable_status= radar_status['status']
     if enable_status == True:
         radar_experiment = "Enable"
     else:
