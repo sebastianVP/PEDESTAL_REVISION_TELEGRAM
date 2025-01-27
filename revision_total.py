@@ -68,7 +68,7 @@ def generate_pdf_report(data,output_file):
     story.append(Spacer(1, 12))
     # Add other checks
 
-
+    """
     # DOS ESTADOS
     print("radar_status",data["radar_status"])
 
@@ -89,7 +89,7 @@ def generate_pdf_report(data,output_file):
         story.append(Paragraph(f"{check}: {status}", styles['Normal']))
     story.append(Spacer(1, 12))
 
-
+    """
     # Build the PDF
     doc.build(story)
 
@@ -100,3 +100,5 @@ if __name__ == "__main__":
     # Generate PDF report
     output_file = "radar_operativity_report.pdf"
     generate_pdf_report(data,output_file)
+    print(f"Report generated: {output_file}")
+
