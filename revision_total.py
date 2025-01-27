@@ -23,9 +23,21 @@ def check_radar_conditions():
     # Check experiment configuration
     experiment_status = execute_command("curl http://sophy-schain/status")
 
+    # DOS ESTADOS
+    conf1 = json.dumps(data['radar_status'])
+    enable_status= conf1["status"]
+    if enable_status == True:
+        radar_experiment = "Enable"
+    else:
+        radar_experiment = "Disable"
+        
+
+
+
     return {
-        "radar_status": radar_status,
-        "experiment_status": experiment_status
+        "radar_status"      : radar_status,
+        "experiment_status" : experiment_status,
+        "Radar_experiment " : radar_experiment,
     }
 
 def generate_pdf_report(data,output_file):
@@ -54,6 +66,16 @@ def generate_pdf_report(data,output_file):
         story.append(Paragraph(f"Error: {data['experiment_status']['error']}", styles['Normal']))
     else:
         story.append(Paragraph(json.dumps(data['experiment_status'], indent=4), styles['Code']))
+    story.append(Spacer(1, 12))
+    # Add other checks
+    checks = [
+        ("Radar Experiment", data["radar_experiment"]),
+    ]
+
+    story.append(Paragraph("<b>Other Checks:</b>", styles['Heading2']))
+    for check, result in checks:
+        status = "PASS" if result else "FAIL"
+        story.append(Paragraph(f"{check}: {status}", styles['Normal']))
     story.append(Spacer(1, 12))
 
     # Build the PDF
