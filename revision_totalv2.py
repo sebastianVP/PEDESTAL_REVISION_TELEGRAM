@@ -141,7 +141,7 @@ def generate_pdf_report(data,output_file):
 
     story.append(Paragraph("<b>Pedestal Checks:</b>", styles['Heading2']))
 
-    story.append(Paragraph(f"Ultimos archivo: {archivos}, Fecha de Creacion{fecha}", styles['Normal']))
+    story.append(Paragraph(f"Ultimos archivo: {archivos}, Fecha de Creacion: {fecha}", styles['Normal']))
 
     story.append(Spacer(1, 12))
 
