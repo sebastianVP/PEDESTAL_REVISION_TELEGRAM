@@ -27,7 +27,7 @@ if directorios:
     ultimos_3_archivos = archivos[:3]
 
     # Obtener la fecha de creación del directorio
-    fecha_creacion_directorio = os.path.getctime(directorio)
+    fecha_creacion_directorio = os.path.getctime(ruta_ultimo_directorio)
     fecha_creacion_directorio = time.ctime(fecha_creacion_directorio)
 
     # Mostrar los resultados
