@@ -66,8 +66,21 @@ def generate_pdf_report(data,output_file):
         story.append(Paragraph(json.dumps(data['experiment_status'], indent=4), styles['Code']))
     story.append(Spacer(1, 12))
     # Add other checks
+
+
+    # DOS ESTADOS
+    print("radar_status",data["radar_status"])
+
+    enable_status= data["radar_status"]['status']
+    if enable_status == True:
+        radar_experiment = "Enable"
+    else:
+        radar_experiment = "Disable"
+
+
+
     checks = [
-        ("Radar Experiment", data["radar_experiment"]),
+        ("Radar Experiment", radar_experiment),
     ]
 
     story.append(Paragraph("<b>Other Checks:</b>", styles['Heading2']))
@@ -75,6 +88,14 @@ def generate_pdf_report(data,output_file):
         status = "PASS" if result else "FAIL"
         story.append(Paragraph(f"{check}: {status}", styles['Normal']))
     story.append(Spacer(1, 12))
+
+
+
+
+
+
+
+
 
     # Build the PDF
     doc.build(story)
