@@ -12,7 +12,7 @@ archivos = [archivo for archivo in archivos if os.path.isfile(os.path.join(direc
 
 # Ordenar los archivos por fecha de modificación (los últimos modificados primero)
 archivos.sort(key=lambda x: os.path.getmtime(os.path.join(directorio, x)), reverse=True)
-
+print(archivos)
 # Listar los últimos 3 archivos
 ultimos_3_archivos = archivos[:3]
 
