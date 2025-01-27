@@ -63,7 +63,7 @@ def generate_pdf_report(data,output_file):
     # STATUS
     print("radar_status",data["radar_status"])
 
-    radar_experiment= data["radar_status"]['status']
+    #radar_experiment= data["radar_status"]['status']
 
     # REVISION EXPERIMENTO
 
@@ -80,7 +80,7 @@ def generate_pdf_report(data,output_file):
     path_ped = os.path.join(PATH, experiment, 'position')
 
     print("Directorio adquisicion",path)
-    
+
     print("Directorio de Pedestal",path_ped)
 
 
