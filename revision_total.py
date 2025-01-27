@@ -79,7 +79,9 @@ def generate_pdf_report(data,output_file):
     ]
 
     story.append(Paragraph("<b>Other Checks:</b>", styles['Heading2']))
+
     for check, result in checks:
+        print("check",check)
         if check=="Radar Experiment":
             status = "ON" if result else "OFF"
         else:
