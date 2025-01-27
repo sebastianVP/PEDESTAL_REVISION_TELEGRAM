@@ -78,7 +78,7 @@ def generate_pdf_report(data,output_file):
     ]
 
     story.append(Paragraph("<b>Other Checks:</b>", styles['Heading2']))
-    """
+    
     for check, result in checks:
         print("check",check)
         if check=="Radar Experiment":
@@ -88,7 +88,6 @@ def generate_pdf_report(data,output_file):
         story.append(Paragraph(f"{check}: {status}", styles['Normal']))
     story.append(Spacer(1, 12))
 
-    """
     # Build the PDF
     doc.build(story)
 
