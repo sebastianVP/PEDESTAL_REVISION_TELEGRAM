@@ -23,20 +23,10 @@ def check_radar_conditions():
     # Check experiment configuration
     experiment_status = execute_command("curl http://sophy-schain/status")
 
-    # DOS ESTADOS
-    print("radar_status",radar_status)
 
-    enable_status= radar_status['status']
-    print("enable_status",enable_status)
-    if enable_status == True:
-        radar_experiment = "Enable"
-    else:
-        radar_experiment = "Disable"
-        
     return {
         "radar_status"      : radar_status,
         "experiment_status" : experiment_status,
-        "Radar_experiment " : radar_experiment,
     }
 
 def generate_pdf_report(data,output_file):
