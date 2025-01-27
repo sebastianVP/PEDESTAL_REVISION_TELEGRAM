@@ -77,7 +77,7 @@ def generate_pdf_report(data,output_file):
         ("Radar Experiment", radar_experiment),
     ]
 
-    story.append(Paragraph("<b>Other Checks:</b>", styles['Heading2']))
+    story.append(Paragraph("<b>Overview Checks:</b>", styles['Heading2']))
     
     for check, result in checks:
         print("check",check)
