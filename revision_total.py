@@ -24,16 +24,13 @@ def check_radar_conditions():
     experiment_status = execute_command("curl http://sophy-schain/status")
 
     # DOS ESTADOS
-    conf1 = json.dumps(data['radar_status'])
+    conf1 = json.dumps(radar_status['radar_status'])
     enable_status= conf1["status"]
     if enable_status == True:
         radar_experiment = "Enable"
     else:
         radar_experiment = "Disable"
         
-
-
-
     return {
         "radar_status"      : radar_status,
         "experiment_status" : experiment_status,
