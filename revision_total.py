@@ -72,13 +72,7 @@ def generate_pdf_report(data,output_file):
     # DOS ESTADOS
     print("radar_status",data["radar_status"])
 
-    enable_status= data["radar_status"]['status']
-    if enable_status == True:
-        radar_experiment = "Enable"
-    else:
-        radar_experiment = "Disable"
-
-
+    radar_experiment= data["radar_status"]['status']
 
     checks = [
         ("Radar Experiment", radar_experiment),
@@ -86,16 +80,12 @@ def generate_pdf_report(data,output_file):
 
     story.append(Paragraph("<b>Other Checks:</b>", styles['Heading2']))
     for check, result in checks:
-        status = "PASS" if result else "FAIL"
+        if check=="Radar Experiment":
+            status = "ON" if result else "OFF"
+        else:
+            status = "PASS" if result else "FAIL"
         story.append(Paragraph(f"{check}: {status}", styles['Normal']))
     story.append(Spacer(1, 12))
-
-
-
-
-
-
-
 
 
     # Build the PDF
