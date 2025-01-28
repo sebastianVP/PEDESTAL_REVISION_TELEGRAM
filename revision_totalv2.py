@@ -184,6 +184,7 @@ def generate_pdf_report(data,output_file):
 
     archivos,ruta = diccionario(directorio_principal=path_ped)
 
+    print("RUTA......",ruta)
     story.append(Paragraph("<b>Pedestal Checks:</b>", styles['Heading2']))
 
     if not archivos:
