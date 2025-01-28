@@ -236,7 +236,7 @@ def generate_pdf_report(data,output_file):
         story.append(Spacer(1, 12))
 
         # Graficar velocidad
-        graph_path = graficar_velocidad(ruta=path_ped,archivos=archivos)
+        graph_path = graficar_velocidad(ruta=ruta,archivos=archivos)
         story.append(Spacer(1, 12))
         story.append(Paragraph("<b>Velocidad del Pedestal:</b>", styles["Heading2"]))
         story.append(Image(graph_path, width=400, height=300))
