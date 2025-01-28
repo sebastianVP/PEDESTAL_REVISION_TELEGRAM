@@ -92,7 +92,7 @@ def diccionario(directorio_principal):
         archivos.sort(key=lambda x: os.path.getmtime(os.path.join(ruta_ultimo_directorio, x)), reverse=True)
         print(archivos)
         # Listar los últimos 3 archivos
-        ultimos_3_archivos = archivos[-4:-1]
+        ultimos_3_archivos = archivos[1:4]
         
         print("Ultimos 3 archivos",ultimos_3_archivos)
         # Mostrar los resultados
