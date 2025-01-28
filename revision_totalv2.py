@@ -215,7 +215,7 @@ def generate_pdf_report(data,output_file):
             condiciones.append("La marca de tiempo del último archivo excede los 2 minutos.")
 
         for archivo in archivos:
-            data_v, time_h =obtener_informacion_archivos(ruta=path_ped,file=archivo["nombre"])
+            data_v, time_h =obtener_informacion_archivos(ruta=ruta,file=archivo["nombre"])
             velocidad_promedio= sum(data_v)/len(data_v)
             if velocidad_promedio<0.5:
                 name= archivo["nombre"]
