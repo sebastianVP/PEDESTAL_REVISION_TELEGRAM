@@ -4,9 +4,10 @@ import os
 import time
 import h5py
 import numpy as np
+import matplotlib.pyplot as plt
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer
+from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer,Image
 from datetime import datetime
 
 def execute_command(command):
@@ -51,6 +52,24 @@ def obtener_informacion_archivos(ruta,file):
                         print(f"Error al procesar '{key2}' en {filename}: {e}")
                         return None, None
 
+def graficar_velocidad(ruta,archivos):
+    archivo = archivos[0]
+    data_v, time_h =obtener_informacion_archivos(ruta=ruta,file=archivo["nombre"])
+    plt.figure(figsize=(8,5))
+    plt.plot(data_v,color="skyblue")
+    plt.axhline(y=0.5,color="red",linestyle="--",label="Limite minimo (0.5)")
+    plt.axhline(y=5,color="green",linestyle="--",label="Velocidad estandar (5)")
+    plt.title("Velocidad del Pedestal")
+    plt.xlabel("Archivos")
+    plt.ylabel("Velocidad (m/s)")
+    plt.legend()
+    plt.tight_layout()
+    output_path = os.getcwd()
+    graph_path = os.path.join(output_path,"velocidad_pedestal.png")
+    plt.savefig(graph_path)
+    plt.close()
+
+    return graph_path
 
 def diccionario(directorio_principal):
     # Obtener la lista de directorios dentro del directorio principal
@@ -87,8 +106,6 @@ def diccionario(directorio_principal):
                 "timestamp": timestamp,
                 "fecha_creacion": fecha_creacion
             })
-        
-
 
         return informacion_archivos,ruta_ultimo_directorio
     else:
@@ -192,7 +209,35 @@ def generate_pdf_report(data,output_file):
             styles["Normal"]
         ))
 
-    story.append(Spacer(1, 12))
+        # Condiciones
+        condiciones = []
+        if diferencia_tiempo.total_seconds() > 120:
+            condiciones.append("La marca de tiempo del último archivo excede los 2 minutos.")
+
+        for archivo in archivos:
+            data_v, time_h =obtener_informacion_archivos(ruta=path_ped,file=archivo["nombre"])
+            velocidad_promedio= sum(data_v)/len(data_v)
+            if velocidad_promedio<0.5:
+                condiciones.append(f"La velocidad promedio del pedestal ({velocidad_promedio:.2f} es menor a 0.5 en el archivo({archivo["nombre"]}).)")
+
+        # Evaluar y mostrar condiciones
+        story.append(Paragraph("<b>Evaluación de Condiciones:</b>", styles["Heading2"]))
+        if condiciones:
+            story.append(Paragraph(
+                "Se presentaron los siguientes problemas:", styles["Normal"]
+            ))
+            for condicion in condiciones:
+                story.append(Paragraph(f"- {condicion}", styles["Normal"]))
+        else:
+            story.append(Paragraph("No se detectaron problemas con el pedestal.", styles["Normal"]))
+        
+        story.append(Spacer(1, 12))
+
+        # Graficar velocidad
+        graph_path = graficar_velocidad(ruta=path_ped,archivos=archivos)
+        story.append(Spacer(1, 12))
+        story.append(Paragraph("<b>Velocidad del Pedestal:</b>", styles["Heading2"]))
+        story.append(Image(graph_path, width=400, height=300))
 
     # Build the PDF
     doc.build(story)
