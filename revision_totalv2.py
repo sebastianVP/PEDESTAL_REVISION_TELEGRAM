@@ -2,6 +2,8 @@ import subprocess
 import json
 import os
 import time
+import h5py
+import numpy as np
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer
@@ -31,6 +33,25 @@ def check_radar_conditions():
         "experiment_status" : experiment_status,
     }
 
+def obtener_informacion_archivos(ruta,file):
+    filename = os.path.join(ruta,file)
+    with h5py.File(filename, "r") as obj:
+        for key in obj.keys():
+            for key2 in obj[key].keys():
+                if key2 == "azi_speed":
+                    param = f"{key}/{key2}"
+                    key3  = "utc"
+                    time_utc= f"{key}/{key3}"
+                    try:
+                        data = np.array(obj[param])
+                        avg_speed = np.mean(data)
+                        time_obj = np.array(obj[time_utc])
+                        time_0   = time_obj[0]
+                        return data, time_obj
+                    except Exception as e:
+                        print(f"Error al procesar '{key2}' en {filename}: {e}")
+                        return None, None
+
 
 def diccionario(directorio_principal):
     # Obtener la lista de directorios dentro del directorio principal
@@ -55,16 +76,23 @@ def diccionario(directorio_principal):
         # Listar los últimos 3 archivos
         ultimos_3_archivos = archivos[:3]
 
-        # Obtener la fecha de creación del directorio
-        fecha_creacion_directorio = os.path.getctime(ruta_ultimo_directorio)
-        fecha_creacion_directorio = time.ctime(fecha_creacion_directorio)
-
         # Mostrar los resultados
         print("Últimos 3 archivos:")
+        informacion_archivos = []
         for archivo in ultimos_3_archivos:
-            print(archivo)
+            timestamp      = os.path.getmtime(archivo)
+            fecha_creacion = datetime.datetime.fromtimestamp(timestamp)
+            informacion_archivos.append({
+                "nombre": os.path.basename(archivo),
+                "timestamp": timestamp,
+                "fecha_creacion": fecha_creacion
+            })
         
-        return ultimos_3_archivos,fecha_creacion_directorio
+
+
+        return informacion_archivos,ruta_ultimo_directorio
+    else:
+        return None,None
 
 
 
@@ -137,11 +165,19 @@ def generate_pdf_report(data,output_file):
         story.append(Paragraph(f"{check}: {status}", styles['Normal']))
 
 
-    archivos, fecha = diccionario(directorio_principal=path_ped)
+    archivos,ruta = diccionario(directorio_principal=path_ped)
 
     story.append(Paragraph("<b>Pedestal Checks:</b>", styles['Heading2']))
 
-    story.append(Paragraph(f"Ultimos archivo: {archivos}, Fecha de Creacion: {fecha}", styles['Normal']))
+    if not archivos:
+        story.append(Paragraph("No se encontraron archivos en el directorio del pedestal.", styles["Normal"]))
+    else:
+        story.append(Paragraph("<b>Últimos 3 Archivos del Pedestal:</b>", styles["Heading2"]))
+        for archivo in archivos:
+            story.append(Paragraph(
+                f"Nombre: {archivo['nombre']}, Fecha de creación: {archivo['fecha_creacion']}",
+                styles["Normal"]
+            ))
 
     story.append(Spacer(1, 12))
 
