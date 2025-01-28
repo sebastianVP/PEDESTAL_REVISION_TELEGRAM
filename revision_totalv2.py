@@ -8,7 +8,6 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer
 from datetime import datetime
-import datetime
 
 def execute_command(command):
     try:
@@ -81,7 +80,7 @@ def diccionario(directorio_principal):
         informacion_archivos = []
         for archivo in ultimos_3_archivos:
             timestamp      = os.path.getmtime(os.path.join(ruta_ultimo_directorio,archivo))
-            fecha_creacion = datetime.datetime.fromtimestamp(timestamp)
+            fecha_creacion = datetime.fromtimestamp(timestamp)
             informacion_archivos.append({
                 "nombre": os.path.basename(archivo),
                 "timestamp": timestamp,
