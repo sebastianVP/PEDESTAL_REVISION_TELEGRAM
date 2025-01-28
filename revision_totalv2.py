@@ -74,7 +74,8 @@ def diccionario(directorio_principal):
         print(archivos)
         # Listar los últimos 3 archivos
         ultimos_3_archivos = archivos[:3]
-
+        
+        print("Ultimos 3 archivos",ultimos_3_archivos)
         # Mostrar los resultados
         print("Últimos 3 archivos:")
         informacion_archivos = []
@@ -171,7 +172,7 @@ def generate_pdf_report(data,output_file):
     if not archivos:
         story.append(Paragraph("No se encontraron archivos en el directorio del pedestal.", styles["Normal"]))
     else:
-        story.append(Paragraph("<b>Últimos 3 Archivos del Pedestal:</b>", styles["Heading2"]))
+        story.append(Paragraph("<b>Últimos 3 Archivos del Pedestal:</b>", styles["Heading3"]))
         for archivo in archivos:
             story.append(Paragraph(
                 f"Nombre: {archivo['nombre']}, Fecha de creación: {archivo['fecha_creacion']}",
