@@ -181,6 +181,8 @@ def generate_pdf_report(data,output_file):
         # Momento del último archivo guardado
         tiempo_actual = datetime.now()
         ultimo_archivo = archivos[0]
+        print("Tiempo actual",tiempo_actual)
+        print("Ultimo archivo",ultimo_archivo)
         diferencia_tiempo = tiempo_actual - ultimo_archivo["fecha_creacion"]
         story.append(Spacer(1, 12))
         story.append(Paragraph(
