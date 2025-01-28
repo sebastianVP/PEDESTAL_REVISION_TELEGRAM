@@ -80,7 +80,7 @@ def diccionario(directorio_principal):
         print("Últimos 3 archivos:")
         informacion_archivos = []
         for archivo in ultimos_3_archivos:
-            timestamp      = os.path.getmtime(archivo)
+            timestamp      = os.path.getmtime(os.path.join(ruta_ultimo_directorio,archivo))
             fecha_creacion = datetime.datetime.fromtimestamp(timestamp)
             informacion_archivos.append({
                 "nombre": os.path.basename(archivo),
