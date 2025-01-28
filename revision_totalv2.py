@@ -218,7 +218,8 @@ def generate_pdf_report(data,output_file):
             data_v, time_h =obtener_informacion_archivos(ruta=path_ped,file=archivo["nombre"])
             velocidad_promedio= sum(data_v)/len(data_v)
             if velocidad_promedio<0.5:
-                condiciones.append(f"La velocidad promedio del pedestal {velocidad_promedio:.2f} es menor a 0.5 en el archivo {archivo["nombre"]}.")
+                name= archivo["nombre"]
+                condiciones.append(f"La velocidad promedio del pedestal {velocidad_promedio:.2f} es menor a 0.5 en el archivo {name}.")
 
         # Evaluar y mostrar condiciones
         story.append(Paragraph("<b>Evaluación de Condiciones:</b>", styles["Heading2"]))
