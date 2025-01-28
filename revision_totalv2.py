@@ -178,6 +178,15 @@ def generate_pdf_report(data,output_file):
                 f"Nombre: {archivo['nombre']}, Fecha de creación: {archivo['fecha_creacion']}",
                 styles["Normal"]
             ))
+        # Momento del último archivo guardado
+        tiempo_actual = datetime.now()
+        ultimo_archivo = archivos[0]
+        diferencia_tiempo = tiempo_actual - ultimo_archivo["fecha_creacion"]
+        story.append(Spacer(1, 12))
+        story.append(Paragraph(
+            f"Tiempo transcurrido desde el último archivo guardado: {diferencia_tiempo.seconds} segundos.",
+            styles["Normal"]
+        ))
 
     story.append(Spacer(1, 12))
 
