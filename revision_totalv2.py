@@ -158,6 +158,12 @@ def generate_pdf_report(data,output_file):
 
     experiment = data["radar_status"]["name"]
 
+    if experiment=="test":
+        direccion = conf['usrp_rx']['datadir']
+
+        # Extraer la parte entre el último "/" y "/rawdata"
+        experiment = direccion.split("/")[-2]
+
     PATH = "/DATA_RM/DATA"
 
     path = conf['usrp_rx']['datadir']
