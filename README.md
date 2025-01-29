@@ -23,9 +23,19 @@ Informacion del experimento configurado
 
 En la parte del pedestal deseo añadir.
 
+**Completado 1**
+---
 1. Mostrar los ultimos 3 archivos, especificar su marca de tiempo y fecha de creación.
 2. El momento que se guardo el ultimo archivo
 3. Graficar la velocidad del pedestal con esos 3 ultimos archivos.
 4. Comparar la marca de tiempo actual con la hora actual y no superar los 2 minutos.
 5. La velocidad no debe ser menor a 0.5 en promedio.
 6. Si alguna de las condiciones falla indicar que se presento un problema y que requiere revisión.
+7. El programa se ejecuta en el minuto 10 y 0 cada hora:
+     10,50 * * * * cd /home/soporte/Documents/PEDESTAL_REVISION_TELEGRAM && ./reporte.sh
+
+
+**Pendiente 1**
+---
+En la parte del radar deseo revisar los ultimos archivos de rawdata hdf.
+8. Revisaremos ahora los archivos hdf5, si existen y se estan creando acorde con el tiempo.
