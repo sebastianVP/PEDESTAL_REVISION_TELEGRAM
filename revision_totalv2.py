@@ -218,6 +218,9 @@ def generate_pdf_report(data,output_file):
 
         for archivo in archivos:
             data_v, time_h =obtener_informacion_archivos(ruta=ruta,file=archivo["nombre"])
+            if np.isnan(data_v).any():
+                condiciones.append(f"El arreglo de Velocidad contiene NaN, el vector Velocidad es: {data_v}")
+
             velocidad_promedio= sum(data_v)/len(data_v)
             if velocidad_promedio<0.5:
                 name= archivo["nombre"]
