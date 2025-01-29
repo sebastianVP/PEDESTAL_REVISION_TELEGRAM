@@ -259,7 +259,8 @@ if __name__ == "__main__":
     # GET RADAR CONDITION DATA
     data = check_radar_conditions() 
     # Generate PDF report
-    output_file = "radar_operativity_report.pdf"
+    time__= datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    output_file = f"radar_operativity_report_{time__}.pdf"
     generate_pdf_report(data,output_file)
     print(f"Report generated: {output_file}")
 
