@@ -253,10 +253,11 @@ def generate_pdf_report(data,output_file):
         
         story.append(Spacer(1, 12))
         # ✅ Mensaje final si hay errores
+        story.append(Paragraph("<b>Evaluación de Final:</b>", styles["Heading2"]))
         if len(condiciones) == 0:
-            story.append(Paragraph("<b>✅ Operación correcta del radar.</b>", styles["Heading2"]))
+            story.append(Paragraph("<b> ✅ Operación correcta del radar.</b>", styles["Normal"]))
         else:
-            story.append(Paragraph("<b>⚠️ Reinicia el experimento.</b>", styles["Heading2"]))
+            story.append(Paragraph("<b> ⚠️ Reinicia el experimento.</b>", styles["Normal"]))
 
     # Build the PDF
     doc.build(story)
