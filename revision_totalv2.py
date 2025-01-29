@@ -55,6 +55,7 @@ def obtener_informacion_archivos(ruta,file):
 def graficar_velocidad(ruta,archivos):
     archivo = archivos[0]
     data_v, time_h =obtener_informacion_archivos(ruta=ruta,file=archivo["nombre"])
+    print("velocidad:",data_v)
     plt.figure(figsize=(8,5))
     plt.plot(data_v,color="skyblue")
     plt.axhline(y=0.5,color="red",linestyle="--",label="Limite minimo (0.5)")
