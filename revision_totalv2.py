@@ -70,7 +70,7 @@ def graficar_velocidad(ruta,archivos):
     plt.savefig(graph_path)
     plt.close()
 
-    return graph_path
+    return graph_path,data_v
 
 def diccionario(directorio_principal):
     # Obtener la lista de directorios dentro del directorio principal
@@ -246,9 +246,11 @@ def generate_pdf_report(data,output_file):
         story.append(Spacer(1, 12))
 
         # Graficar velocidad
-        graph_path = graficar_velocidad(ruta=ruta,archivos=archivos)
+        graph_path,data_velocidad = graficar_velocidad(ruta=ruta,archivos=archivos)
         story.append(Spacer(1, 12))
+
         story.append(Paragraph("<b>Velocidad del Pedestal:</b>", styles["Heading2"]))
+        story.append(Paragraph(f"Valores de velocidad del ultimo archivo grabado: {data_velocidad}.", styles["Normal"]))
         story.append(Image(graph_path, width=400, height=300))
         
         story.append(Spacer(1, 12))
