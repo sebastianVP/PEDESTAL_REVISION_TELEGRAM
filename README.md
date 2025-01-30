@@ -39,3 +39,19 @@ En la parte del pedestal deseo añadir.
 ---
 En la parte del radar deseo revisar los ultimos archivos de rawdata hdf.
 8. Revisaremos ahora los archivos hdf5, si existen y se estan creando acorde con el tiempo.
+9. Revisar el ultimo grafico generado para identificar si el procesamiento se detuvo.
+10. Reiniciar el experimento 
+11. Enviar el reporte pdf por telegram
+
+Tomar de ejemplo algo simple como:
+```
+from telegram import Bot
+
+TOKEN = "TU_TOKEN_AQUÍ"
+CHAT_ID = "ID_DEL_CHAT_O_USUARIO"
+PDF_PATH = "ruta/al/archivo.pdf"
+
+bot = Bot(token=TOKEN)
+bot.send_document(chat_id=CHAT_ID, document=open(PDF_PATH, "rb"))
+print("PDF enviado con éxito")
+```
