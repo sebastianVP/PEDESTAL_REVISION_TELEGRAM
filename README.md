@@ -31,7 +31,7 @@ En la parte del pedestal deseo añadir.
 4. Comparar la marca de tiempo actual con la hora actual y no superar los 2 minutos.
 5. La velocidad no debe ser menor a 0.5 en promedio.
 6. Si alguna de las condiciones falla indicar que se presento un problema y que requiere revisión.
-7. El programa se ejecuta en el minuto 10 y 0 cada hora:
+7. El programa se ejecuta en el minuto 10 y 50 cada hora:
      10,50 * * * * cd /home/soporte/Documents/PEDESTAL_REVISION_TELEGRAM && ./reporte.sh
 
 
